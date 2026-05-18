@@ -10,9 +10,12 @@ public class LostItem {
     private String location;
     private String imagePath;
     private long postedAtMillis;
+    private double latitude;
+    private double longitude;
 
     public LostItem(long id, String postType, String name, String phone, String description,
-                    String category, String location, String imagePath, long postedAtMillis) {
+                    String category, String location, String imagePath, long postedAtMillis,
+                    double latitude, double longitude) {
         this.id = id;
         this.postType = postType;
         this.name = name;
@@ -22,6 +25,8 @@ public class LostItem {
         this.location = location;
         this.imagePath = imagePath;
         this.postedAtMillis = postedAtMillis;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public long getId() {
@@ -59,5 +64,12 @@ public class LostItem {
     public long getPostedAtMillis() {
         return postedAtMillis;
     }
-}
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+}

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Lost and Found</string>
+    <string name="google_maps_key">AIzaSyAjc5JfXUyOgk7YnXcQTMSDQGk-APEX8Io</string>
 </resources>

@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
         MaterialButton btnCreate = findViewById(R.id.btnCreateAdvert);
         MaterialButton btnShowAll = findViewById(R.id.btnShowAll);
+        MaterialButton btnShowOnMap = findViewById(R.id.btnShowOnMap);
 
         btnCreate.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, CreateAdvertActivity.class);
@@ -23,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
 
         btnShowAll.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ItemListActivity.class);
+            startActivity(intent);
+        });
+
+        btnShowOnMap.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, MapActivity.class);
             startActivity(intent);
         });
     }

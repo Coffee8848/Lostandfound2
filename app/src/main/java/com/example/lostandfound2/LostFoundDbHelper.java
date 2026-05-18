@@ -11,7 +11,7 @@ import java.util.List;
 
 public class LostFoundDbHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "lost_found.db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
 
     private static final String TABLE_ITEMS = "items";
     private static final String COL_ID = "id";
@@ -23,6 +23,8 @@ public class LostFoundDbHelper extends SQLiteOpenHelper {
     private static final String COL_LOCATION = "location";
     private static final String COL_IMAGE_PATH = "image_path";
     private static final String COL_POSTED_AT = "posted_at";
+    private static final String COL_LATITUDE = "latitude";
+    private static final String COL_LONGITUDE = "longitude";
 
     public LostFoundDbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -39,7 +41,9 @@ public class LostFoundDbHelper extends SQLiteOpenHelper {
                 COL_CATEGORY + " TEXT NOT NULL, " +
                 COL_LOCATION + " TEXT NOT NULL, " +
                 COL_IMAGE_PATH + " TEXT NOT NULL, " +
-                COL_POSTED_AT + " INTEGER NOT NULL" +
+                COL_POSTED_AT + " INTEGER NOT NULL, " +
+                COL_LATITUDE + " REAL, " +
+                COL_LONGITUDE + " REAL" +
                 ")";
         db.execSQL(createTable);
     }
@@ -61,6 +65,8 @@ public class LostFoundDbHelper extends SQLiteOpenHelper {
         values.put(COL_LOCATION, item.getLocation());
         values.put(COL_IMAGE_PATH, item.getImagePath());
         values.put(COL_POSTED_AT, item.getPostedAtMillis());
+        values.put(COL_LATITUDE, item.getLatitude());
+        values.put(COL_LONGITUDE, item.getLongitude());
         return db.insert(TABLE_ITEMS, null, values);
     }
 
@@ -96,8 +102,10 @@ public class LostFoundDbHelper extends SQLiteOpenHelper {
                 String location = cursor.getString(cursor.getColumnIndexOrThrow(COL_LOCATION));
                 String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(COL_IMAGE_PATH));
                 long postedAt = cursor.getLong(cursor.getColumnIndexOrThrow(COL_POSTED_AT));
+                double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(COL_LATITUDE));
+                double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(COL_LONGITUDE));
 
-                items.add(new LostItem(id, postType, name, phone, description, category, location, imagePath, postedAt));
+                items.add(new LostItem(id, postType, name, phone, description, category, location, imagePath, postedAt, latitude, longitude));
             }
             cursor.close();
         }
@@ -127,8 +135,10 @@ public class LostFoundDbHelper extends SQLiteOpenHelper {
                 String location = cursor.getString(cursor.getColumnIndexOrThrow(COL_LOCATION));
                 String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(COL_IMAGE_PATH));
                 long postedAt = cursor.getLong(cursor.getColumnIndexOrThrow(COL_POSTED_AT));
+                double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(COL_LATITUDE));
+                double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(COL_LONGITUDE));
 
-                item = new LostItem(id, postType, name, phone, description, category, location, imagePath, postedAt);
+                item = new LostItem(id, postType, name, phone, description, category, location, imagePath, postedAt, latitude, longitude);
             }
             cursor.close();
         }
@@ -141,4 +151,3 @@ public class LostFoundDbHelper extends SQLiteOpenHelper {
         return deletedRows > 0;
     }
 }
-
